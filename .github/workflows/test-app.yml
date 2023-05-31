@@ -49,6 +49,10 @@ jobs:
           sleep 60
           awslocal cloudformation describe-stacks --stack-name stack1 | grep StackStatus
           echo "done"
+      - name: Seed test environment with Cloud Pod
+        run: |
+          localstack pod load https://raw.githubusercontent.com/giograno/serverless-api-ecs-apigateway-sample/main/ddb-sample/bootstrap
+          sleep 10
       - name: Run tests
         run: |
           cd sample-app/tests
